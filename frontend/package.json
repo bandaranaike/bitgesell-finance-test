@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "dependencies": {
+    "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
@@ -27,6 +28,7 @@
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.21",
     "cross-env": "^7.0.3"
   }
 }

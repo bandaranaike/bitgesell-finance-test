@@ -32,6 +32,8 @@ function Items() {
             } catch (err) {
                 // Only log if still mounted
                 if (isMounted) console.error(err);
+            }finally {
+
             }
         })();
 
@@ -55,15 +57,14 @@ function Items() {
         );
     }, [items]);
 
-    if (!items.length) return <p>Loading...</p>;
-
     return (
-        <div style={{width: '100%', maxWidth: 600, margin: '0 auto'}}>
+        <div className="container mx-auto pb-6">
             <input
                 type="text"
                 placeholder="Search items…"
                 value={query}
                 onChange={handleSearch}
+                className="rounded-lg border border-gray-300 p-2 w-full my-4"
             />
 
 
@@ -82,12 +83,30 @@ function Items() {
                 )
             }
 
-            <div style={{marginTop: 16, display: 'flex', justifyContent: 'space-between'}}>
-                <button onClick={() => goTo(page - 1)} disabled={page <= 1}>
+            <div className="mt-4 flex ">
+                <button className="border px-3 py-2 m-0 rounded-l-lg" onClick={() => goTo(page - 1)} disabled={page <= 1}>
                     Previous
                 </button>
-                <span>Page {page} of {totalPages}</span>
-                <button onClick={() => goTo(page + 1)} disabled={page >= totalPages}>
+
+                {Array.from({ length: totalPages }, (_, idx) => {
+                    const pageNum = idx + 1;
+                    return (
+                        <button className="border-y border-r px-3 py-2 m-0"
+                            key={pageNum}
+                            onClick={() => goTo(pageNum)}
+                            disabled={pageNum === page}
+                            style={{
+                                fontWeight: pageNum === page ? 'bold' : 'normal',
+                                textDecoration: pageNum === page ? 'underline' : 'none',
+                                cursor: pageNum === page ? 'default' : 'pointer',
+                            }}
+                        >
+                            {pageNum}
+                        </button>
+                    );
+                })}
+
+                <button className="border-y border-r rounded-r-lg px-3 py-2 m-0" onClick={() => goTo(page + 1)} disabled={page >= totalPages}>
                     Next
                 </button>
             </div>
