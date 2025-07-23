@@ -6,27 +6,32 @@ function Items() {
   const { items, fetchItems } = useData();
 
   useEffect(() => {
-    let active = true;
+    let isMounted = true;
 
-    // Intentional bug: setState called after component unmount if request is slow
-    fetchItems().catch(console.error);
+    (async () => {
+      try {
+        await fetchItems();
+      } catch (err) {
+        // Only log if still mounted
+        if (isMounted) console.error(err);
+      }
+    })();
 
-    // Clean‑up to avoid memory leak (candidate should implement)
     return () => {
-      active = false;
+      isMounted = false;
     };
   }, [fetchItems]);
 
   if (!items.length) return <p>Loading...</p>;
 
   return (
-    <ul>
-      {items.map(item => (
-        <li key={item.id}>
-          <Link to={'/items/' + item.id}>{item.name}</Link>
-        </li>
-      ))}
-    </ul>
+      <ul>
+        {items.map(item => (
+            <li key={item.id}>
+              <Link to={'/items/' + item.id}>{item.name}</Link>
+            </li>
+        ))}
+      </ul>
   );
 }
 
