@@ -1,6 +1,6 @@
 # Solution Overview
 
-This document outlines the key changes made, the rationale behind each choice, and the trade‑offs encountered during implementation.
+This document outlines the key changes made, the rationale behind each choice, and the trade‑offing encountered during implementation.
 
 ---
 
@@ -21,16 +21,16 @@ This document outlines the key changes made, the rationale behind each choice, a
 * **Rationale:** Avoid expensive JSON parsing and reduction on every request.
 * **Trade‑offs:**
 
-    * Cache invalidation complexity—must watch timestamp correctly.
+    * Cache invalidation complexity must watch the timestamp correctly.
     * Memory overhead for storing the last result, though minimal.
 
 ### 3. Unit Tests (Jest)
 
 * **Change:** Added `stats.test.js` and `items.test.js` covering:
 
-    * Happy paths (stats calculation, item listing, filtering, pagination).
+    * Happy paths (stat calculation, item listing, filtering, pagination).
     * Error cases (`fs.stat` failure, missing item ID).
-    * Cache behavior (ensuring no re‑reads when file unchanged).
+    * Cache behavior (ensuring no re‑reads when a file is unchanged).
 * **Rationale:** Ensure correctness and catch regressions early.
 * **Trade‑offs:**
 
@@ -91,13 +91,13 @@ This document outlines the key changes made, the rationale behind each choice, a
 * **Rationale:** Enables PurgeCSS to remove unused styles, shrinks final CSS, supports advanced theming.
 * **Trade‑offs:**
 
-    * Upfront build pipeline changes; \~15 min setup + incremental migration of classes.
+    * Upfront build pipeline changes; \~15 min setup and incremental migration of classes.
 
 ---
 
 ## Debounced Fetching
 
-* **Optimization:** Can wrap fetchItems with a 600 ms debounce using `lodash.debounce` in `DataContext`.
+* **Optimization:** Can wrap fetchItems with a 600 ms debounced using `lodash.debounce` in `DataContext`.
 * **Rationale:** Reduce redundant network calls as the user types, improving performance and reducing server load.
 * **Trade‑offs:**
 
